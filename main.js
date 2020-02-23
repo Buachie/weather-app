@@ -1,4 +1,5 @@
 window.addEventListener("load", () => {
+  let body = document.querySelector(".main");
   let long;
   let lat;
   let temp = document.querySelector(".temp-degree");
@@ -34,6 +35,63 @@ window.addEventListener("load", () => {
     const skycons = new Skycons({ color: "white" });
     const currentIcon = icon.replace(/-/g, "_").toUpperCase();
     skycons.play();
+
+    switch (currentIcon) {
+      case "CLEAR_DAY":
+        body.style.background = "linear-gradient(to right, #ffe259, #ffa751)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "CLEAR_NIGHT":
+        body.style.background = "linear-gradient(to right, #41295a, #2F0743)";
+        skycons.color = "white";
+        body.style.color = "#fff";
+        break;
+      case "PARTLY_CLOUDY_DAY":
+        body.style.background = "linear-gradient(to right, #ED4264, #FFEDBC)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "PARTLY_CLOUDY_NIGHT":
+        body.style.background = "linear-gradient(to right, #5C258D, #4389A2)";
+        skycons.color = "white";
+        body.style.color = "#fff";
+        break;
+      case "CLOUDY":
+        body.style.background = "linear-gradient(to right, #8e9eab, #eef2f3)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "RAIN":
+        body.style.background =
+          "linear-gradient(to bottom right, #1A2980, #26D0CE)";
+        skycons.color = "white";
+        body.style.color = "#fff";
+        break;
+      case "WIND":
+        body.style.background = "linear-gradient(to right, #acb6e5, #86fde8)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "SNOW":
+        body.style.background = "linear-gradient(to right, #ECE9E6, #FFFFFF)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "SLEET":
+        body.style.background = "linear-gradient(to right, #ECE9E6, #FFFFFF)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+      case "FOG":
+        body.style.background = "linear-gradient(to right, #E6DADA, #274046)";
+        skycons.color = "black";
+        body.style.color = "#000";
+        break;
+
+      default:
+        break;
+    }
     return skycons.set(iconID, Skycons[currentIcon]);
   };
 });
