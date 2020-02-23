@@ -5,7 +5,8 @@ window.addEventListener("load", () => {
   let location = document.querySelector(".location");
   let time = document.querySelector(".time");
   let weather = document.querySelector(".weather");
-
+  let apparentTemp = document.querySelector(".apparent-degree");
+  let weatherIcon = document.querySelector(".icon");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
       long = position.coords.longitude;
@@ -22,7 +23,17 @@ window.addEventListener("load", () => {
           temp.innerHTML = data.currently.temperature + " degrees";
           location.innerHTML = data.timezone;
           weather.innerHTML = data.currently.summary;
+          apparentTemp.innerHTML =
+            "(Feels like) " + data.currently.apparentTemperature;
+          weatherIcon = data.currently.icon;
+          setIcons(weatherIcon, document.querySelector(".icon"));
         });
     });
   }
+  setIcons = (icon, iconID) => {
+    const skycons = new Skycons({ color: "white" });
+    const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+    skycons.play();
+    return skycons.set(iconID, Skycons[currentIcon]);
+  };
 });
