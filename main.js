@@ -22,7 +22,7 @@ window.addEventListener("load", () => {
         .then(data => {
           console.log(data);
           temp.innerHTML = data.currently.temperature + " degrees";
-          location.innerHTML = data.timezone;
+          location.innerHTML = data.timezone.replace(/_/g, " ");
           weather.innerHTML = data.currently.summary;
           apparentTemp.innerHTML =
             "(Feels like) " + data.currently.apparentTemperature;
