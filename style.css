@@ -4,7 +4,6 @@
 html,
 body {
   width: 100%;
-  height: 100%;
 }
 
 body {
@@ -32,4 +31,15 @@ body {
 .location {
   font-size: 2em;
   font-weight: bold;
+}
+.weekly {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weekly .icon {
+  width: 120px;
+  height: 60px;
 }
