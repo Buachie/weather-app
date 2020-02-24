@@ -10,6 +10,38 @@ window.addEventListener("load", () => {
   let weatherIcon = document.querySelector(".icon");
   let weeklyForecast = document.querySelector(".weekly");
 
+  function tm(unix_tm) {
+    var dt = new Date(unix_tm * 1000);
+    day = dt.getDay();
+    switch (day) {
+      case 0:
+        day = "Sunday";
+        break;
+      case 1:
+        day = "Monday";
+        break;
+      case 2:
+        day = "Tuesday";
+        break;
+      case 3:
+        day = "Wedensday";
+        break;
+      case 4:
+        day = "Thursday";
+        break;
+      case 5:
+        day = "Friday";
+        break;
+      case 6:
+        day = "Saturday";
+        break;
+
+      default:
+        break;
+    }
+    return day;
+  }
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
       long = position.coords.longitude;
@@ -29,20 +61,24 @@ window.addEventListener("load", () => {
           apparentTemp.innerHTML =
             "(Feels like) " + data.currently.apparentTemperature;
           weatherIcon = data.currently.icon;
-          setIcons1(weatherIcon, document.querySelector(".icon"));
+          setIconsCurrent(weatherIcon, document.querySelector(".icon"));
 
           //Weekly Temps
 
           for (let i = 1; i < data.daily.data.length; i++) {
             let day = document.createElement("div");
+            let time = document.createElement("div");
+            time.classList.add("day");
+            time.innerHTML = tm(data.daily.data[i].time);
             weatherIcon = data.daily.data[i].icon;
             weeklyIcon = document.createElement("canvas");
             weeklyIcon.classList.add("icon");
             weeklyForecast.appendChild(weeklyIcon);
-            setIcons2(weatherIcon, weeklyIcon);
+            setIconsWeekly(weatherIcon, weeklyIcon);
 
             weekTemp = document.createElement("div");
             weekTemp.innerHTML = data.daily.data[i].temperatureHigh;
+            day.appendChild(time);
             day.appendChild(weeklyIcon);
             day.appendChild(weekTemp);
             weeklyForecast.appendChild(day);
@@ -50,7 +86,7 @@ window.addEventListener("load", () => {
         });
     });
   }
-  setIcons2 = (icon, iconID) => {
+  setIconsWeekly = (icon, iconID) => {
     const skycons = new Skycons({ color: "white" });
     const currentIcon = icon.replace(/-/g, "_").toUpperCase();
 
@@ -58,7 +94,7 @@ window.addEventListener("load", () => {
     return skycons.set(iconID, Skycons[currentIcon]);
   };
 
-  setIcons1 = (icon, iconID) => {
+  setIconsCurrent = (icon, iconID) => {
     const skycons = new Skycons({ color: "white" });
     const currentIcon = icon.replace(/-/g, "_").toUpperCase();
 
